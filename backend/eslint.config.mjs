@@ -10,6 +10,21 @@ export default [
   {
     languageOptions: { globals: globals.node },
   },
+  {
+    rules: {
+      'no-unused-vars': [
+        'error',
+        {
+          vars: 'all',
+          args: 'after-used',
+          argsIgnorePattern: '^_',
+          caughtErrors: 'all',
+          ignoreRestSiblings: false,
+          reportUsedIgnorePattern: false,
+        },
+      ],
+    },
+  },
   pluginJs.configs.recommended,
   eslintConfigPrettier,
 ];

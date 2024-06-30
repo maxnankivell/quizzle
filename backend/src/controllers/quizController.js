@@ -1,7 +1,7 @@
-const AppError = require('../error-handling/appError');
+const AppError = require('./../error-handling/appError');
 const Quiz = require('./../models/quizModel');
 
-exports.getAllQuizzes = async (req, res) => {
+exports.getAllQuizzes = async (req, res, next) => {
   try {
     const quizzes = await Quiz.find()
       .where('title')
@@ -20,7 +20,7 @@ exports.getAllQuizzes = async (req, res) => {
       },
     });
   } catch {
-    new AppError('Failed to get all quizzes', 500);
+    next(new AppError('Failed to get all quizzes', 500));
   }
 };
 
@@ -39,11 +39,11 @@ exports.getQuiz = async (req, res, next) => {
       },
     });
   } catch {
-    new AppError('Failed to get quiz', 500);
+    next(new AppError('Failed to get quiz', 500));
   }
 };
 
-exports.createQuiz = async (req, res) => {
+exports.createQuiz = async (req, res, next) => {
   try {
     const newQuiz = await Quiz.create(req.body);
 
@@ -54,7 +54,7 @@ exports.createQuiz = async (req, res) => {
       },
     });
   } catch {
-    new AppError('Failed to create quiz', 500);
+    next(new AppError('Failed to create quiz', 500));
   }
 };
 
@@ -76,7 +76,7 @@ exports.updateQuiz = async (req, res, next) => {
       },
     });
   } catch {
-    new AppError('Failed to update quiz', 500);
+    next(new AppError('Failed to update quiz', 500));
   }
 };
 
@@ -93,6 +93,6 @@ exports.deleteQuiz = async (req, res, next) => {
       data: null,
     });
   } catch {
-    new AppError('Failed to delete quiz', 500);
+    next(new AppError('Failed to delete quiz', 500));
   }
 };

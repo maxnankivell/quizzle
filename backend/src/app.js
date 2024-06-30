@@ -4,10 +4,12 @@ const morgan = require('morgan');
 const rateLimit = require('express-rate-limit');
 const cookieParser = require('cookie-parser');
 const mongoSanitize = require('express-mongo-sanitize');
+const passport = require('passport');
 
 const router = require('./router');
 const AppError = require('./error-handling/appError');
 const globalErrorCatcher = require('./error-handling/errorCatcher');
+const initializePassport = require('./auth/passport-jwt');
 
 const app = express();
 
@@ -16,7 +18,7 @@ app.use(helmet());
 
 // Development logging
 if (process.env.NODE_ENV === 'development') {
-  app.use(morgan('dev'));
+  app.use(morgan('tiny'));
 }
 
 // Limit requests from same API
@@ -44,6 +46,9 @@ app.use(mongoSanitize());
 // Prevent parameter pollution
 // app.use(hpp());
 // TODO
+
+// Initialize passport for auth
+initializePassport(passport);
 
 // Router
 app.use('/api/v1', router);
