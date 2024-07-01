@@ -4,9 +4,11 @@ const Quiz = require('./../models/quizModel');
 exports.getAllQuizzes = async (req, res, next) => {
   try {
     const quizzes = await Quiz.find()
+      .where('user')
+      .equals(req.user.id)
       .where('title')
       .regex(req.query.filter)
-      .sort('-createdAd')
+      .sort('-createdAt')
       .select('-__v')
       .skip(req.query.skip)
       .limit(req.query.limit)
@@ -26,7 +28,7 @@ exports.getAllQuizzes = async (req, res, next) => {
 
 exports.getQuiz = async (req, res, next) => {
   try {
-    const quiz = await Quiz.findById(req.params.id).exec();
+    const quiz = await Quiz.findOne({ _id: req.params.id, user: req.user.id }).exec();
 
     if (!quiz) {
       return next(new AppError('No quiz found with that ID', 404));
@@ -44,6 +46,7 @@ exports.getQuiz = async (req, res, next) => {
 };
 
 exports.createQuiz = async (req, res, next) => {
+  req.body.user = req.user.id;
   try {
     const newQuiz = await Quiz.create(req.body);
 
@@ -59,15 +62,18 @@ exports.createQuiz = async (req, res, next) => {
 };
 
 exports.updateQuiz = async (req, res, next) => {
+  req.body.user = req.user.id;
   try {
+    const quizToUpdate = await Quiz.findOne({ _id: req.params.id, user: req.user.id }).exec();
+
+    if (!quizToUpdate) {
+      return next(new AppError('No quiz found with that ID', 404));
+    }
+
     const updatedQuiz = await Quiz.findByIdAndUpdate(req.params.id, req.body, {
       new: true,
       runValidators: true,
     });
-
-    if (!updatedQuiz) {
-      return next(new AppError('No quiz found with that ID', 404));
-    }
 
     res.status(200).json({
       status: 'success',
@@ -82,11 +88,13 @@ exports.updateQuiz = async (req, res, next) => {
 
 exports.deleteQuiz = async (req, res, next) => {
   try {
-    const doc = await Quiz.findByIdAndDelete(req.params.id);
+    const quizToDelete = await Quiz.findOne({ _id: req.params.id, user: req.user.id }).exec();
 
-    if (!doc) {
+    if (!quizToDelete) {
       return next(new AppError('No quiz found with that ID', 404));
     }
+
+    await Quiz.findByIdAndDelete(req.params.id);
 
     res.status(204).json({
       status: 'success',
