@@ -8,6 +8,7 @@ function initializePassport(passport) {
   passport.use(
     new JwtStrategy(opts, function (jwt_payload, done) {
       User.findOne({ _id: jwt_payload.id })
+        .select('passwordChangedAt')
         .then((user) => {
           if (!user) {
             return done(null, false);
