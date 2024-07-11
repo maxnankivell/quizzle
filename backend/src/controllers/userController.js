@@ -128,3 +128,96 @@ exports.resetPassword = async (req, res, next) => {
 
   res.status(200).json({ status: 'success' });
 };
+
+exports.updatePassword = async (req, res, next) => {
+  try {
+    const user = await User.findById(req.user.id).select('+password');
+
+    if (req.body.password !== req.body.passwordConfirm) {
+      next(new AppError('Passwords dont match', 500));
+    }
+
+    if (!(await user.correctPassword(req.body.passwordCurrent, user.password))) {
+      return next(new AppError('Your current password is wrong.', 401));
+    }
+
+    user.password = req.body.password;
+    await user.save();
+
+    authHelper.createToken(user, res);
+
+    // Remove password from output
+    user.password = undefined;
+
+    res.status(201).json({
+      status: 'success',
+      data: {
+        user,
+      },
+    });
+  } catch {
+    next(new AppError('Error creating user', 500));
+  }
+};
+
+exports.getMe = async (req, res, next) => {
+  try {
+    const user = await User.findById(req.user.id);
+
+    if (!user) {
+      return next(new AppError('No user found with that ID', 404));
+    }
+
+    res.status(200).json({
+      status: 'success',
+      data: {
+        data: user,
+      },
+    });
+  } catch {
+    next(new AppError('Failed to get user', 500));
+  }
+};
+
+exports.updateMe = async (req, res, next) => {
+  try {
+    const userToUpdate = await User.findById(req.user.id);
+
+    if (!userToUpdate) {
+      return next(new AppError('No user found with that ID', 404));
+    }
+
+    const updatedUser = await User.findByIdAndUpdate(req.user.id, req.body, {
+      new: true,
+      runValidators: true,
+    });
+
+    res.status(200).json({
+      status: 'success',
+      data: {
+        data: updatedUser,
+      },
+    });
+  } catch {
+    next(new AppError('Failed to update quiz', 500));
+  }
+};
+
+exports.deleteMe = async (req, res, next) => {
+  try {
+    const userToDelete = await User.findById(req.user.id);
+
+    if (!userToDelete) {
+      return next(new AppError('No user found with that ID', 404));
+    }
+
+    await User.findByIdAndDelete(req.user.id);
+
+    res.status(204).json({
+      status: 'success',
+      data: null,
+    });
+  } catch {
+    next(new AppError('Failed to delete user', 500));
+  }
+};
