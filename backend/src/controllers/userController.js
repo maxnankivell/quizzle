@@ -3,6 +3,13 @@ const User = require('./../models/userModel');
 const AppError = require('./../error-handling/appError');
 const crypto = require('crypto');
 
+/**
+ *
+ * @param {Object} req
+ * @param {{password: string, passwordConfirm: string, name: string, email: string}} req.body
+ * @param {Object} res
+ * @param {Object} next
+ */
 exports.signup = async (req, res, next) => {
   if (req.body.password !== req.body.passwordConfirm) {
     next(new AppError('Passwords dont match', 500));
@@ -31,6 +38,13 @@ exports.signup = async (req, res, next) => {
   }
 };
 
+/**
+ *
+ * @param {Object} req
+ * @param {{password: string, email: string}} req.body
+ * @param {Object} res
+ * @param {Object} next
+ */
 exports.login = async (req, res, next) => {
   try {
     const { email, password } = req.body;
@@ -61,6 +75,12 @@ exports.login = async (req, res, next) => {
   }
 };
 
+/**
+ *
+ * @param {Object} req
+ * @param {Object} res
+ * @param {Object} next
+ */
 exports.logout = (req, res, _next) => {
   res.cookie('jwt', 'loggedout', {
     expires: new Date(Date.now() + 10 * 1000),
@@ -69,6 +89,13 @@ exports.logout = (req, res, _next) => {
   res.status(200).json({ status: 'success' });
 };
 
+/**
+ *
+ * @param {Object} req
+ * @param {{email: string}} req.body
+ * @param {Object} res
+ * @param {Object} next
+ */
 exports.forgotPassword = async (req, res, next) => {
   try {
     const user = await User.findOne({ email: req.body.email });
@@ -109,6 +136,14 @@ exports.forgotPassword = async (req, res, next) => {
   }
 };
 
+/**
+ *
+ * @param {Object} req
+ * @param {{token: string}} req.params
+ * @param {{password: string}} req.body
+ * @param {Object} res
+ * @param {Object} next
+ */
 exports.resetPassword = async (req, res, next) => {
   const hashedToken = crypto.createHash('sha256').update(req.params.token).digest('hex');
 
@@ -129,6 +164,14 @@ exports.resetPassword = async (req, res, next) => {
   res.status(200).json({ status: 'success' });
 };
 
+/**
+ *
+ * @param {Object} req
+ * @param {{id: string}} req.user
+ * @param {{password: string, passwordConfirm: string, passwordCurrent: string}} req.body
+ * @param {Object} res
+ * @param {Object} next
+ */
 exports.updatePassword = async (req, res, next) => {
   try {
     const user = await User.findById(req.user.id).select('+password');
@@ -160,6 +203,13 @@ exports.updatePassword = async (req, res, next) => {
   }
 };
 
+/**
+ *
+ * @param {Object} req
+ * @param {{id: string}} req.user
+ * @param {Object} res
+ * @param {Object} next
+ */
 exports.getMe = async (req, res, next) => {
   try {
     const user = await User.findById(req.user.id);
@@ -179,6 +229,14 @@ exports.getMe = async (req, res, next) => {
   }
 };
 
+/**
+ *
+ * @param {Object} req
+ * @param {{id: string}} req.user
+ * @param {{name: string, email: string}} req.body
+ * @param {Object} res
+ * @param {Object} next
+ */
 exports.updateMe = async (req, res, next) => {
   try {
     const userToUpdate = await User.findById(req.user.id);
@@ -203,6 +261,13 @@ exports.updateMe = async (req, res, next) => {
   }
 };
 
+/**
+ *
+ * @param {Object} req
+ * @param {{id: string}} req.user
+ * @param {Object} res
+ * @param {Object} next
+ */
 exports.deleteMe = async (req, res, next) => {
   try {
     const userToDelete = await User.findById(req.user.id);

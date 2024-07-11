@@ -1,6 +1,14 @@
 const AppError = require('./../error-handling/appError');
 const Quiz = require('./../models/quizModel');
 
+/**
+ *
+ * @param {Object} req
+ * @param {{id: string}} req.user
+ * @param {{id: string}} req.params
+ * @param {Object} res
+ * @param {Object} next
+ */
 exports.getAllQuizzes = async (req, res, next) => {
   try {
     const quizzes = await Quiz.find()
@@ -26,6 +34,14 @@ exports.getAllQuizzes = async (req, res, next) => {
   }
 };
 
+/**
+ *
+ * @param {Object} req
+ * @param {{id: string}} req.user
+ * @param {{id: string}} req.params
+ * @param {Object} res
+ * @param {Object} next
+ */
 exports.getQuiz = async (req, res, next) => {
   try {
     const quiz = await Quiz.findOne({ _id: req.params.id, user: req.user.id }).exec();
@@ -45,6 +61,14 @@ exports.getQuiz = async (req, res, next) => {
   }
 };
 
+/**
+ *
+ * @param {Object} req
+ * @param {{id: string}} req.user
+ * @param {{title: string, questions: {position: number, prompt: string, image: string, answer: string, options: {option: string}[]}[]}} req.body
+ * @param {Object} res
+ * @param {Object} next
+ */
 exports.createQuiz = async (req, res, next) => {
   req.body.user = req.user.id;
   try {
@@ -61,6 +85,15 @@ exports.createQuiz = async (req, res, next) => {
   }
 };
 
+/**
+ *
+ * @param {Object} req
+ * @param {{id: string}} req.user
+ * @param {{id: string}} req.params
+ * @param {{title: string, questions: {position: number, prompt: string, image: string, answer: string, options: {option: string}[]}[]}} req.body
+ * @param {Object} res
+ * @param {Object} next
+ */
 exports.updateQuiz = async (req, res, next) => {
   req.body.user = req.user.id;
   try {
@@ -86,6 +119,14 @@ exports.updateQuiz = async (req, res, next) => {
   }
 };
 
+/**
+ *
+ * @param {Object} req
+ * @param {{id: string}} req.user
+ * @param {{id: string}} req.params
+ * @param {Object} res
+ * @param {Object} next
+ */
 exports.deleteQuiz = async (req, res, next) => {
   try {
     const quizToDelete = await Quiz.findOne({ _id: req.params.id, user: req.user.id }).exec();
