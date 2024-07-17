@@ -1,0 +1,17 @@
+{
+  "name": "static-pages",
+  "version": "1.0.0",
+  "description": "static front pages for Quizzle app",
+  "main": "index.js",
+  "scripts": {
+    "start": "npx @11ty/eleventy --serve",
+    "build": "npx @11ty/eleventy"
+  },
+  "author": "Max Nankivell",
+  "license": "ISC",
+  "dependencies": {
+    "@11ty/eleventy": "^2.0.1",
+    "sass": "^1.77.8"
+  }
+}
+
