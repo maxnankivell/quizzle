@@ -1,13 +1,20 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="/reset.css" />
-    <title>{{ title }}</title>
-    {% block head %} {% endblock head %}
-  </head>
-  <body>
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" href="/css/global.css" />
+  {% block head %}{% endblock head %}
+  <title>{{ title }}</title>
+</head>
+
+<body>
+  <div class="body-wrapper">
+    {% block nav %}{% endblock nav %}
     {{ content | safe }}
-  </body>
+    {% block footer %}{% endblock footer %}
+  </div>
+</body>
+
 </html>

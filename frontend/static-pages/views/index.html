@@ -1,10 +1,10 @@
 ﻿---
-layout: layouts/base.html
+layout: layouts/landing.html
 title: Quizzle
 ---
 
-{% block head %}
-<link rel="stylesheet" href="/index.css" />
-{% endblock head %}
-
-<main class="main"><h1 class="title">{{ title }}</h1></main>
+<main class="landing">
+    <h1 class="title">{{ title }}</h1>
+    {% for val in StepCardData %} {% StepCard number=val.number, text=val.text %}
+    {% endfor %}
+</main>

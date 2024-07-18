@@ -2,7 +2,6 @@
   "name": "static-pages",
   "version": "1.0.0",
   "description": "static front pages for Quizzle app",
-  "main": "index.js",
   "scripts": {
     "start": "npx @11ty/eleventy --serve",
     "build": "npx @11ty/eleventy"
@@ -11,7 +10,7 @@
   "license": "ISC",
   "dependencies": {
     "@11ty/eleventy": "^2.0.1",
+    "common-tags": "^1.8.2",
     "sass": "^1.77.8"
   }
 }
-

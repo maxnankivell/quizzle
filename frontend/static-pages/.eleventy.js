@@ -1,4 +1,6 @@
 const sass = require("sass");
+const StepCard = require("./views/_includes/components/StepCard");
+const Button = require("./views/_includes/components/Button");
 
 module.exports = function (eleventyConfig) {
   eleventyConfig.addTemplateFormats("scss");
@@ -17,6 +19,11 @@ module.exports = function (eleventyConfig) {
       };
     },
   });
+
+  eleventyConfig.addPassthroughCopy("views/assets");
+
+  eleventyConfig.addShortcode("StepCard", StepCard);
+  eleventyConfig.addShortcode("Button", Button);
 
   // Return your Object options:
   return {

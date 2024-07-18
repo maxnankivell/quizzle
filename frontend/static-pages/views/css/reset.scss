@@ -23,6 +23,7 @@ figure,
 blockquote,
 dl,
 dd {
+  margin: 0;
   margin-block-end: 0;
 }
 
@@ -34,7 +35,7 @@ ol[role="list"] {
 
 /* Set core body defaults */
 body {
-  min-height: 100vh;
+  height: 100vh;
   line-height: 1.5;
 }
 
