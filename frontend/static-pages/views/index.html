@@ -5,9 +5,23 @@ title: Quizzle
 
 <main class="landing">
     <h1 class="title">{{ title }}</h1>
-    <section>
-        {% for val in StepCardData %}
-        {% StepCard number=val.number, text=val.text %}
-        {% endfor %}
+    <section class="unlock-your-learning">
+        <div class="unlock-your-learning-text-container">
+            <h2 class="unlock-your-learning-title">Unlock Your Learning</h2>
+            <p class="unlock-your-learning-description">
+                Quizzle lets you create your own quizzes to practice your learning. Create quizzes about any topic you
+                want using the powerful quiz builder tool and have them saved to your account for use anywhere.
+            </p>
+        </div>
+        <img src="/assets/filler-image.png" alt="Create quiz screenshot" class="unlock-your-learning-image" />
+    </section>
+
+    <section class="how-it-works">
+        <h2 class="how-it-works-title">How It Works</h2>
+        <div class="how-it-works-stepcards-container">
+            {% for val in StepCardData %}
+            {% StepCard number=val.number, text=val.text %}
+            {% endfor %}
+        </div>
     </section>
 </main>

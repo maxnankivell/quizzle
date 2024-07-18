@@ -2,4 +2,42 @@
   .title {
     color: blue;
   }
+
+  .unlock-your-learning {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 32px;
+
+    .unlock-your-learning-text-container {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+
+      // .unlock-your-learning-title {
+      // }
+
+      // .unlock-your-learning-description {
+      // }
+    }
+
+    .unlock-your-learning-image {
+      width: 520px;
+    }
+  }
+
+  .how-it-works {
+    display: flex;
+    flex-direction: column;
+    gap: 48px;
+
+    .how-it-works-title {
+      text-align: center;
+    }
+    .how-it-works-stepcards-container {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      column-gap: 32px;
+    }
+  }
 }
