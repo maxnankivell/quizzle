@@ -1,7 +1,14 @@
 .step-card {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+
   .step-card-header {
+    background-color: var(--secondary-blue);
+    text-align: center;
   }
 
   .step-card-description {
+    text-align: center;
   }
 }

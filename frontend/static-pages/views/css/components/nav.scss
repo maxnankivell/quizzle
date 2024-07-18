@@ -1,3 +1,18 @@
 .nav {
   background-color: white;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 16px;
+
+  .nav-logo {
+    height: 48px;
+    cursor: pointer;
+  }
+
+  .nav-buttons {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
 }

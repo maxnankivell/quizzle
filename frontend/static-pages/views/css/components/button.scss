@@ -1,0 +1,26 @@
+.button {
+  padding: 6px 16px;
+  border: 2px solid var(--accent-orange);
+  border-radius: 16px;
+  cursor: pointer;
+  transition: transform 200ms;
+
+  &:hover {
+    transform: scale(1.02);
+  }
+
+  &.primary {
+    background-color: var(--primary-blue);
+    color: white;
+  }
+
+  &.secondary {
+    background-color: white;
+    color: black;
+  }
+
+  .button-inner {
+    font-weight: bold;
+    text-align: center;
+  }
+}

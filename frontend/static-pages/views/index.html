@@ -5,6 +5,9 @@ title: Quizzle
 
 <main class="landing">
     <h1 class="title">{{ title }}</h1>
-    {% for val in StepCardData %} {% StepCard number=val.number, text=val.text %}
-    {% endfor %}
+    <section>
+        {% for val in StepCardData %}
+        {% StepCard number=val.number, text=val.text %}
+        {% endfor %}
+    </section>
 </main>
