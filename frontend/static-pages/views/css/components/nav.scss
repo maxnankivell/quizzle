@@ -4,6 +4,9 @@
   align-items: center;
   justify-content: space-between;
   padding: 16px;
+  min-height: 80px;
+  height: 80px;
+  max-height: 80px;
 
   .nav-logo {
     height: 48px;
