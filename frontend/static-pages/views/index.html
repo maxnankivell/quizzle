@@ -4,16 +4,11 @@ title: Quizzle
 ---
 
 <main class="landing">
-    <h1 class="title">{{ title }}</h1>
-    <section class="unlock-your-learning">
-        <div class="unlock-your-learning-text-container">
-            <h2 class="unlock-your-learning-title">Unlock Your Learning</h2>
-            <p class="unlock-your-learning-description">
-                Quizzle lets you create your own quizzes to practice your learning. Create quizzes about any topic you
-                want using the powerful quiz builder tool and have them saved to your account for use anywhere.
-            </p>
-        </div>
-        <img src="/assets/filler-image.png" alt="Create quiz screenshot" class="unlock-your-learning-image" />
+    <section class="hero">
+        <h1 class="hero-title">{{ title }}</h1>
+        <h4 class="hero-subtitle">Unlock Your Learning</h4>
+        {% Button text="Get Started", type="primary", className='hero-button' %}
+        <img src="/assets/filler-image.png" alt="Quiz screenshot" class="hero-image" />
     </section>
 
     <section class="unlock-your-learning">

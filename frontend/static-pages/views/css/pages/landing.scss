@@ -1,7 +1,31 @@
 .landing {
   .hero {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background: radial-gradient(var(--secondary-blue), var(--primary-blue));
+    height: calc(100vh - 80px);
+    max-width: 100vw;
+    gap: 16px;
+
     .hero-title {
-      color: blue;
+      color: white;
+    }
+
+    .hero-subtitle {
+      color: white;
+      margin-bottom: 16px;
+    }
+
+    .hero-button {
+      font-size: 1.5em;
+      margin-bottom: 16px;
+    }
+
+    .hero-image {
+      width: 100%;
+      max-width: 800px;
     }
   }
 
@@ -24,7 +48,32 @@
     }
 
     .unlock-your-learning-image {
-      width: 520px;
+      width: 60%;
+      max-width: 520px;
+    }
+  }
+
+  @media only screen and (max-width: 800px) {
+    .unlock-your-learning {
+      flex-direction: column;
+      justify-content: start;
+      gap: 16px;
+
+      .unlock-your-learning-text-container {
+        gap: 8px;
+
+        .unlock-your-learning-title {
+          text-align: center;
+        }
+
+        .unlock-your-learning-description {
+          text-align: center;
+        }
+      }
+
+      .unlock-your-learning-image {
+        width: 100%;
+      }
     }
   }
 
@@ -40,6 +89,17 @@
       display: grid;
       grid-template-columns: 1fr 1fr 1fr;
       column-gap: 32px;
+      row-gap: 16px;
+    }
+  }
+
+  @media only screen and (max-width: 800px) {
+    .how-it-works {
+      gap: 32px;
+
+      .how-it-works-stepcards-container {
+        grid-template-columns: 1fr;
+      }
     }
   }
 }
