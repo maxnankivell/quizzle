@@ -5,6 +5,7 @@ const rateLimit = require('express-rate-limit');
 const cookieParser = require('cookie-parser');
 const mongoSanitize = require('express-mongo-sanitize');
 const passport = require('passport');
+const cors = require('cors');
 
 const router = require('./router');
 const AppError = require('./error-handling/appError');
@@ -12,6 +13,22 @@ const globalErrorCatcher = require('./error-handling/errorCatcher');
 const initializePassport = require('./auth/passport-jwt');
 
 const app = express();
+
+// Allow cross origin requests
+const whitelist = process.env.NODE_ENV === 'production' ? ['https://produrlgoeshere.com'] : ['http://localhost:5173'];
+
+app.use(
+  cors({
+    origin: function (origin, callback) {
+      if (whitelist.indexOf(origin) !== -1) {
+        callback(null, true);
+      } else {
+        callback(new Error('Not allowed by CORS'));
+      }
+    },
+    credentials: true,
+  }),
+);
 
 // Set security HTTP headers
 app.use(helmet());

@@ -1,4 +1,6 @@
 import { Box, Button, TextField, Typography, useTheme } from "@mui/material";
+import { useMutation } from "@tanstack/react-query";
+import axios from "axios";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { Link } from "react-router-dom";
 
@@ -11,12 +13,29 @@ type SignUpInputs = {
 
 function SignUp() {
   const theme = useTheme();
+
   const {
     register,
     handleSubmit,
     formState: { errors },
   } = useForm<SignUpInputs>();
-  const onSubmit: SubmitHandler<SignUpInputs> = (data) => console.log(data);
+
+  const signupMutation = useMutation({
+    mutationFn: (data: SignUpInputs) =>
+      axios.post("http://localhost:3000/api/v1/users/signup", data, { withCredentials: true }),
+    onError: (error, variables, context) => {
+      console.log(`error ${error}`);
+      console.log(`variables ${variables}`);
+      console.log(`context ${context}`);
+    },
+    onSuccess: (data, variables, context) => {
+      console.log(`data ${JSON.stringify(data.headers)}`);
+      console.log(`variables ${JSON.stringify(variables)}`);
+      console.log(`context ${JSON.stringify(context)}`);
+    },
+  });
+
+  const onSubmit: SubmitHandler<SignUpInputs> = (data) => signupMutation.mutate(data);
 
   return (
     <Box
