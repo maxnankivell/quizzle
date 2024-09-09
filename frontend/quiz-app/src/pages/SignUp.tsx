@@ -3,6 +3,7 @@ import { SubmitHandler, useForm } from "react-hook-form";
 import { Link } from "react-router-dom";
 
 type SignUpInputs = {
+  name: string;
   email: string;
   password: string;
   passwordConfirm: string;
@@ -41,8 +42,26 @@ function SignUp() {
 
       <form
         onSubmit={handleSubmit(onSubmit)}
-        style={{ display: "flex", flexDirection: "column", alignContent: "center" }}
+        style={{ display: "flex", flexDirection: "column", alignContent: "center", width: "100%" }}
       >
+        <TextField
+          label="Name"
+          variant="outlined"
+          type="text"
+          required
+          {...register("name", { required: true })}
+          sx={{ marginTop: "24px" }}
+        />
+        {errors.name && (
+          <Typography variant="subtitle2" sx={{ marginTop: "4px", color: theme.palette.error.main }}>
+            {errors.name.type === "required"
+              ? "Email is required"
+              : errors.name.type === "pattern"
+                ? "Invalid email adress"
+                : "Validation error"}
+          </Typography>
+        )}
+
         <TextField
           label="Email"
           variant="outlined"
@@ -108,7 +127,9 @@ function SignUp() {
         </Button>
       </form>
 
-      <Button variant="text">Log In</Button>
+      <Link to={"/login"}>
+        <Button variant="text">Log In</Button>
+      </Link>
     </Box>
   );
 }
