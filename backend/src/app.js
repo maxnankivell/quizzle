@@ -35,7 +35,7 @@ app.use(helmet());
 
 // Development logging
 if (process.env.NODE_ENV === 'development') {
-  app.use(morgan('tiny'));
+  app.use(morgan('short'));
 }
 
 // Limit requests from same API
