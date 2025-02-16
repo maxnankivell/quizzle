@@ -3,6 +3,7 @@ import { useMutation } from "@tanstack/react-query";
 import axios from "axios";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { Link } from "react-router-dom";
+import { useAuth } from "../contexts/AuthContext";
 
 type SignUpInputs = {
   name: string;
@@ -13,6 +14,7 @@ type SignUpInputs = {
 
 function SignUp() {
   const theme = useTheme();
+  const { login } = useAuth();
 
   const {
     register,
@@ -29,6 +31,7 @@ function SignUp() {
       console.log(`context ${context}`);
     },
     onSuccess: (data, variables, context) => {
+      login();
       console.log(`data ${JSON.stringify(data.headers)}`);
       console.log(`variables ${JSON.stringify(variables)}`);
       console.log(`context ${JSON.stringify(context)}`);
