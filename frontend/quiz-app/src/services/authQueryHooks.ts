@@ -16,7 +16,6 @@ export type SignUpInputs = {
   passwordConfirm: string;
 };
 
-// Login hook
 export const useLoginMutation = () => {
   const { login } = useAuth();
   const navigate = useNavigate();
@@ -41,7 +40,6 @@ export const useLoginMutation = () => {
   });
 };
 
-// Signup hook
 export const useSignUpMutation = () => {
   const { login } = useAuth();
   const navigate = useNavigate();
@@ -66,7 +64,6 @@ export const useSignUpMutation = () => {
   });
 };
 
-// Logout hook
 export const useLogOutMutation = () => {
   const { logout } = useAuth();
   const navigate = useNavigate();
