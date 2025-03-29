@@ -1,14 +1,19 @@
 import js from "@eslint/js";
-import globals from "globals";
+import eslintPluginQuery from "@tanstack/eslint-plugin-query";
+import eslintConfigPrettier from "eslint-config-prettier";
 import reactHooks from "eslint-plugin-react-hooks";
 import reactRefresh from "eslint-plugin-react-refresh";
-import eslintConfigPrettier from "eslint-config-prettier";
-import eslintPluginQuery from "@tanstack/eslint-plugin-query";
+import globals from "globals";
 
 import tseslint from "typescript-eslint";
 
 export default tseslint.config({
-  extends: [js.configs.recommended, ...tseslint.configs.recommended, eslintPluginQuery, eslintConfigPrettier],
+  extends: [
+    js.configs.recommended,
+    ...tseslint.configs.recommended,
+    ...eslintPluginQuery.configs["flat/recommended"],
+    eslintConfigPrettier,
+  ],
   files: ["**/*.{ts,tsx}"],
   ignores: ["dist"],
   languageOptions: {

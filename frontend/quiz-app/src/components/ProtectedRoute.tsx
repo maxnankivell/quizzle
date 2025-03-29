@@ -1,5 +1,5 @@
 import { Navigate } from "react-router-dom";
-import { useAuth } from "../contexts/AuthContext"; // You'll need to create this context
+import { useAuth } from "../hooks/useAuth"; // You'll need to create this context
 
 interface ProtectedRouteProps {
   children: React.ReactNode;

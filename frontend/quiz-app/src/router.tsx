@@ -1,12 +1,12 @@
 import { createBrowserRouter } from "react-router-dom";
-import Home from "./pages/Home";
+import ProtectedRoute from "./components/ProtectedRoute";
+import AuthLayout from "./layouts/AuthLayout";
+import RootLayout from "./layouts/RootLayout";
 import ErrorPage from "./pages/ErrorPage";
-import RootLayout from "./pages/RootLayout";
-import AuthLayout from "./pages/AuthLayout";
+import ForgotPassword from "./pages/ForgotPassword";
+import Home from "./pages/Home";
 import Login from "./pages/Login";
 import SignUp from "./pages/SignUp";
-import ForgotPassword from "./pages/ForgotPassword";
-import ProtectedRoute from "./components/ProtectedRoute";
 
 const router = createBrowserRouter([
   {
